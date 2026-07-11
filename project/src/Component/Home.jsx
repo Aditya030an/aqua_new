@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
-// Hero video is hosted on Cloudinary (too large for the repo).
-// Set VITE_HERO_VIDEO_URL in your .env / Vercel env to your uploaded video URL.
+import fishvideo from "./photos/fishvideo.mp4";
+
+// Large videos are hosted on Cloudinary (too big for the repo).
+// Set these in your .env / Vercel env to your uploaded video URLs.
 const video1 = import.meta.env.VITE_HERO_VIDEO_URL || "";
+// Side gallery: the small fishvideo ships in the repo; the larger one comes from Cloudinary.
+const sideVideos = [fishvideo, import.meta.env.VITE_SIDE_VIDEO_URL].filter(Boolean);
 import { FaPlay } from "react-icons/fa";
 import logo from "./photos/logodesign.png";
 import r1 from "./photos/review.jpeg"
@@ -264,7 +268,7 @@ Where Aquatic Care Meets Passion! We are dedicated to the vibrant ecosystem of a
   {/* SIDE VIDEOS */}
   <div className="flex flex-col gap-6">
 
-    {[video2, video3].map((vid, i) => (
+    {sideVideos.map((vid, i) => (
       <motion.div
         key={i}
         whileHover={{ scale: 1.02 }}
