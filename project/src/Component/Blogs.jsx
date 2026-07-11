@@ -97,6 +97,14 @@ const handleEdit = (blog) => {
           )}
         </div>
 
+        {/* Empty state */}
+        {blogs.length === 0 && (
+          <div className="text-center py-24 text-gray-500">
+            <p className="text-lg font-medium">No articles published yet.</p>
+            <p className="text-sm mt-1">Please check back soon.</p>
+          </div>
+        )}
+
         {/* Blog Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
           {blogs.map((blog, index) => (

@@ -11,13 +11,22 @@ import orderRouter from "./routes/orderRoutes.js";
 //App config
 const app = express();
 const port = process.env.PORT || 4000;
-connectDb();
-
 
 //middewares
 
 app.use(express.json());
 app.use(cors());
+
+// Ensure the DB is connected before handling any request (serverless-safe)
+app.use(async (req, res, next) => {
+    try {
+        await connectDb();
+        next();
+    } catch (error) {
+        console.log("DB connection failed:", error);
+        res.status(500).json({ success: false, message: "Database connection failed" });
+    }
+});
 
 //api end points
 app.use("/api/user" , userRouter);

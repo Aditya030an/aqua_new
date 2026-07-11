@@ -7,6 +7,7 @@ import Home from "./Component/Home";
 import About from "./Component/About";
 import Contact from "./Component/Contact";
 import Floatingbutton from "./Component/Floatingbutton"; // ✅ ADD THIS
+import Footer from "./Component/Footer";
 import Login from "./Component/login";
 import Forgetpassword from "./Component/Forgetpassword";
 import Signup from "./Component/Signup";
@@ -32,11 +33,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Toaster position="top-right" />
-      <div className="w-full min-h-screen bg-white overflow-x-hidden">
+      <div className="flex flex-col min-h-screen w-full bg-white overflow-x-hidden">
         {/* Navbar */}
         <Navbar />
 
-        {/* Routes */}
+        {/* Routes (grows to fill space so the footer always stays at the bottom) */}
+        <main className="flex-grow">
         <Routes>
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
@@ -78,9 +80,13 @@ const App = () => {
             }
           />
         </Routes>
+        </main>
 
         {/* FLOATING BUTTONS (GLOBAL) */}
         <Floatingbutton />
+
+        {/* FOOTER (GLOBAL) */}
+        <Footer />
       </div>
     </BrowserRouter>
   );

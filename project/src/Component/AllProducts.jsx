@@ -154,7 +154,12 @@ export default function AllProducts() {
 
       {/* Grid */}
       {loading ? (
-        <p className="text-center">Loading products...</p>
+        <p className="text-center py-20">Loading products...</p>
+      ) : products.length === 0 ? (
+        <div className="text-center py-24 text-gray-500">
+          <p className="text-lg font-medium">No products available right now.</p>
+          <p className="text-sm mt-1">Please check back soon.</p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {products.map((item) => (
