@@ -4,6 +4,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import OrderSuccess from "./Ordersuccessful";
 
+// Load the Razorpay checkout script on demand (only when the user pays),
+// instead of loading it on every page. Resolves true once it's ready.
+const loadRazorpay = () =>
+  new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+
 export default function BuyNow() {
   const API_URL = import.meta.env.VITE_APP_API_URL || "http://localhost:8080";
   const location = useLocation();
@@ -136,6 +148,12 @@ export default function BuyNow() {
           color: "#1F212E",
         },
       };
+
+      const razorpayReady = await loadRazorpay();
+      if (!razorpayReady) {
+        alert("Payment gateway failed to load. Please try again.");
+        return;
+      }
 
       const rzp = new window.Razorpay(options);
       rzp.open();
